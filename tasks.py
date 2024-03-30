@@ -9,6 +9,8 @@ from RPA.Excel.Files import Files as Excel
 from utilities.login.login import call_login_task, call_password_task
 from utilities.pdf.definition import HTMLConversor
 
+from test_runner import run_test
+
 FILE_NAME = "challenge.xlsx"
 EXCEL_URL = f"https://rpachallenge.com/assets/downloadFiles/{FILE_NAME}"
 OUTPUT_DIR = Path(os.getenv("ROBOT_ARTIFACTS", "output"))
@@ -51,6 +53,7 @@ def fill_spreadsheet():
 def credentials_call():
     call_login_task()
     call_password_task()
+    run_test()
 
 @task
 def pdf_conversor_call():
