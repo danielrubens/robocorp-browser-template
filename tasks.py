@@ -7,7 +7,7 @@ from robocorp.tasks import task
 from RPA.Excel.Files import Files as Excel
 
 from utilities.login.login import call_login_task, call_password_task
-from utilities.pdf.definition import robot_spare_bin_python
+from utilities.pdf.definition import HTMLConversor
 
 FILE_NAME = "challenge.xlsx"
 EXCEL_URL = f"https://rpachallenge.com/assets/downloadFiles/{FILE_NAME}"
@@ -15,7 +15,7 @@ OUTPUT_DIR = Path(os.getenv("ROBOT_ARTIFACTS", "output"))
 
 
 @task
-def solve_challenge():
+def fill_spreadsheet():
     """
     Main task which solves the RPA challenge!
 
@@ -48,10 +48,14 @@ def solve_challenge():
         print("Automation finished!")
 
 @task
-def general_call():
+def credentials_call():
     call_login_task()
     call_password_task()
-    robot_spare_bin_python()
+
+@task
+def pdf_conversor_call():
+    conversor = HTMLConversor()
+    conversor.to_pdf()
 
 def download_file(url: str, *, target_dir: Path, target_filename: str) -> Path:
     """
