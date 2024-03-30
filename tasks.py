@@ -7,6 +7,7 @@ from robocorp.tasks import task
 from RPA.Excel.Files import Files as Excel
 
 from utilities.login.login import call_login_task, call_password_task
+from utilities.pdf.definition import robot_spare_bin_python
 
 FILE_NAME = "challenge.xlsx"
 EXCEL_URL = f"https://rpachallenge.com/assets/downloadFiles/{FILE_NAME}"
@@ -23,7 +24,7 @@ def solve_challenge():
     """
     
     browser.configure(
-        browser_engine="chromium", screenshot="only-on-failure", headless=True, isolated=True
+        browser_engine="chromium", screenshot="only-on-failure", headless=False, isolated=True,
     )
     try:
         # Reads a table from an Excel file hosted online.
@@ -50,7 +51,8 @@ def solve_challenge():
 def general_call():
     call_login_task()
     call_password_task()
-    
+    robot_spare_bin_python()
+
 def download_file(url: str, *, target_dir: Path, target_filename: str) -> Path:
     """
     Downloads a file from the given URL into a custom folder & name.
