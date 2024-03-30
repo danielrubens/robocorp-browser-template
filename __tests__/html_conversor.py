@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch, MagicMock
 from utilities.pdf.definition import HTMLConversor
-from robocorp.tasks import task
+
 
 class TestHTMLConversor(unittest.TestCase):
     @patch('utilities.pdf.definition.browser.goto')
