@@ -6,6 +6,8 @@ from robocorp import browser
 from robocorp.tasks import task
 from RPA.Excel.Files import Files as Excel
 
+from utilities.login.login import call_login_task, call_password_task
+
 FILE_NAME = "challenge.xlsx"
 EXCEL_URL = f"https://rpachallenge.com/assets/downloadFiles/{FILE_NAME}"
 OUTPUT_DIR = Path(os.getenv("ROBOT_ARTIFACTS", "output"))
@@ -19,6 +21,7 @@ def solve_challenge():
     Downloads the source data Excel file and uses Playwright to fill the entries inside
     rpachallenge.com.
     """
+    
     browser.configure(
         browser_engine="chromium", screenshot="only-on-failure", headless=True, isolated=True
     )
@@ -40,6 +43,8 @@ def solve_challenge():
         element = page.locator("css=div.congratulations")
         browser.screenshot(element)
     finally:
+        call_login_task()
+        call_password_task()
         # A place for teardown and cleanups. (Playwright handles browser closing)
         print("Automation finished!")
 
@@ -86,3 +91,5 @@ def fill_and_submit_form(row: dict, *, page: browser.Page):
     for field, key in field_data_map.items():
         page.fill(f"//input[@ng-reflect-name='{field}']", str(row[key]))
     page.click("input:text('Submit')")
+
+
