@@ -43,12 +43,14 @@ def solve_challenge():
         element = page.locator("css=div.congratulations")
         browser.screenshot(element)
     finally:
-        call_login_task()
-        call_password_task()
         # A place for teardown and cleanups. (Playwright handles browser closing)
         print("Automation finished!")
 
-
+@task
+def general_call():
+    call_login_task()
+    call_password_task()
+    
 def download_file(url: str, *, target_dir: Path, target_filename: str) -> Path:
     """
     Downloads a file from the given URL into a custom folder & name.
