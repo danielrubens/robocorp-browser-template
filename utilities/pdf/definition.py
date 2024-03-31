@@ -5,17 +5,17 @@ from RPA.HTTP import HTTP
 from RPA.Excel.Files import Files
 from RPA.PDF import PDF
 
+from .locators import Locators
+
 class HTMLConversor:
     def __init__(self):
         pass
     
-    def to_pdf(self):
-        self.robot_spare_bin_python()
 
-    def robot_spare_bin_python(self):
+    def to_pdf(self):
         """Insert the sales data for the week and export it as a PDF"""
         browser.configure(
-            slowmo=100,
+            browser_engine="chromium", screenshot="only-on-failure", headless=False, isolated=True, slowmo=1
         )
         self.open_the_intranet_website()
         self.log_in()
@@ -27,34 +27,34 @@ class HTMLConversor:
 
     def open_the_intranet_website(self):
         """Navigates to the given URL"""
-        browser.goto("https://robotsparebinindustries.com/")
+        browser.goto(Locators.main_url)
 
     def log_in(self):
         """Fills in the login form and clicks the 'Log in' button"""
         page = browser.page()
-        page.fill("#username", "maria")
-        page.fill("#password", "thoushallnotpass")
-        page.click("button:text('Log in')")
+        page.fill(Locators.username, "maria")
+        page.fill(Locators.password, "thoushallnotpass")
+        page.click(Locators.login_button)
 
     def fill_and_submit_sales_form(self, sales_rep):
         """Fills in the sales data and click the 'Submit' button"""
         page = browser.page()
 
-        page.fill("#firstname", sales_rep["First Name"])
-        page.fill("#lastname", sales_rep["Last Name"])
-        page.select_option("#salestarget", str(sales_rep["Sales Target"]))
-        page.fill("#salesresult", str(sales_rep["Sales"]))
-        page.click("text=Submit")
+        page.fill(Locators.first_name, sales_rep["First Name"])
+        page.fill(Locators.last_name, sales_rep["Last Name"])
+        page.select_option(Locators.sales_target, str(sales_rep["Sales Target"]))
+        page.fill(Locators.sales_result, str(sales_rep["Sales"]))
+        page.click(Locators.submit_button)
 
     def download_excel_file(self):
         """Downloads excel file from the given URL"""
         http = HTTP()
-        http.download(url="https://robotsparebinindustries.com/SalesData.xlsx", overwrite=True)
+        http.download(url=Locators.excel_url, overwrite=True)
 
     def fill_form_with_excel_data(self):
         """Read data from excel and fill in the sales form"""
         excel = Files()
-        excel.open_workbook("SalesData.xlsx")
+        excel.open_workbook(Locators.excel_file_name)
         worksheet = excel.read_worksheet_as_table("data", header=True)
         excel.close_workbook()
 
@@ -64,17 +64,17 @@ class HTMLConversor:
     def collect_results(self):
         """Take a screenshot of the page"""
         page = browser.page()
-        page.screenshot(path="output/sales_summary.png")
+        page.screenshot(path=Locators.output_sales_summary)
 
     def export_as_pdf(self):
         """Export the data to a pdf file"""
         page = browser.page()
-        sales_results_html = page.locator("#sales-results").inner_html()
+        sales_results_html = page.locator(Locators.sales_results).inner_html()
 
         pdf = PDF()
-        pdf.html_to_pdf(sales_results_html, "output/sales_results.pdf")
+        pdf.html_to_pdf(sales_results_html, Locators.output_sales_pdf)
 
     def log_out(self):
         """Presses the 'Log out' button"""
         page = browser.page()
-        page.click("text=Log out")
+        page.click(Locators.logout_button)
