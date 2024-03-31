@@ -17,7 +17,7 @@ EXCEL_URL = f"https://rpachallenge.com/assets/downloadFiles/{FILE_NAME}"
 OUTPUT_DIR = Path(os.getenv("ROBOT_ARTIFACTS", "output"))
 
 
-@task
+#@task
 def fill_spreadsheet():
     """
     Main task which solves the RPA challenge!
@@ -48,13 +48,13 @@ def fill_spreadsheet():
         # A place for teardown and cleanups. (Playwright handles browser closing)
         print("Automation finished!")
 
-@task
+#@task
 def credentials_call():
     call_login_task()
     call_password_task()
     #run_test()
 
-@task
+#@task
 def pdf_conversor_call():
     conversor = HTMLConversor()
     conversor.to_pdf()

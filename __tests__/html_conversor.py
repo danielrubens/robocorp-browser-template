@@ -3,14 +3,18 @@ from unittest.mock import patch, MagicMock
 from utilities.pdf.definition import HTMLConversor
 
 
+BROWSER_PATH = "utilities.abc.browser.browser"
+PDF_PATH = "utilities.pdf.definition"
+
+
 class TestHTMLConversor(unittest.TestCase):
-    @patch('utilities.pdf.definition.browser.goto')
+    @patch(f"{BROWSER_PATH}.goto")
     def test_open_the_intranet_website(self, mock_goto):
         conv = HTMLConversor()
         conv.open_the_intranet_website()
         mock_goto.assert_called_once_with("https://robotsparebinindustries.com/")
 
-    @patch('utilities.pdf.definition.browser.page')
+    @patch(f"{BROWSER_PATH}.page")
     def test_log_in(self, mock_page):
         mock_fill = MagicMock()
         mock_page.return_value = mock_fill
@@ -26,7 +30,7 @@ class TestHTMLConversor(unittest.TestCase):
         # This test case can be implemented similarly to test_log_in
         pass
 
-    @patch('utilities.pdf.definition.HTTP')
+    @patch(f"{PDF_PATH}.HTTP")
     def test_download_excel_file(self, mock_http):
         conv = HTMLConversor()
 
