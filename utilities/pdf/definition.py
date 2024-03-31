@@ -1,22 +1,18 @@
-from robocorp.tasks import task
-from robocorp import browser
-
 from RPA.HTTP import HTTP
 from RPA.Excel.Files import Files
 from RPA.PDF import PDF
 
 from .locators import Locators
+from utilities.abc.browser import Browser
 
-class HTMLConversor:
+class HTMLConversor(Browser):
     def __init__(self):
-        pass
+        super(HTMLConversor, self).__init__()
     
 
     def to_pdf(self):
         """Insert the sales data for the week and export it as a PDF"""
-        browser.configure(
-            browser_engine="chromium", screenshot="only-on-failure", headless=False, isolated=True, slowmo=1
-        )
+
         self.open_the_intranet_website()
         self.log_in()
         self.download_excel_file()
@@ -27,18 +23,18 @@ class HTMLConversor:
 
     def open_the_intranet_website(self):
         """Navigates to the given URL"""
-        browser.goto(Locators.main_url)
+        self.browser.goto(Locators.main_url)
 
     def log_in(self):
         """Fills in the login form and clicks the 'Log in' button"""
-        page = browser.page()
+        page = self.browser.page()
         page.fill(Locators.username, "maria")
         page.fill(Locators.password, "thoushallnotpass")
         page.click(Locators.login_button)
 
     def fill_and_submit_sales_form(self, sales_rep):
         """Fills in the sales data and click the 'Submit' button"""
-        page = browser.page()
+        page = self.browser.page()
 
         page.fill(Locators.first_name, sales_rep["First Name"])
         page.fill(Locators.last_name, sales_rep["Last Name"])
@@ -63,12 +59,12 @@ class HTMLConversor:
 
     def collect_results(self):
         """Take a screenshot of the page"""
-        page = browser.page()
+        page = self.browser.page()
         page.screenshot(path=Locators.output_sales_summary)
 
     def export_as_pdf(self):
         """Export the data to a pdf file"""
-        page = browser.page()
+        page = self.browser.page()
         sales_results_html = page.locator(Locators.sales_results).inner_html()
 
         pdf = PDF()
@@ -76,5 +72,5 @@ class HTMLConversor:
 
     def log_out(self):
         """Presses the 'Log out' button"""
-        page = browser.page()
+        page = self.browser.page()
         page.click(Locators.logout_button)

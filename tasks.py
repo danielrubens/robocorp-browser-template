@@ -8,6 +8,7 @@ from RPA.Excel.Files import Files as Excel
 
 from utilities.login.login import call_login_task, call_password_task
 from utilities.pdf.definition import HTMLConversor
+from utilities.abc.browser import Browser
 
 from __tests__.test_runner import run_test
 
@@ -24,10 +25,8 @@ def fill_spreadsheet():
     Downloads the source data Excel file and uses Playwright to fill the entries inside
     rpachallenge.com.
     """
-    
-    browser.configure(
-        browser_engine="chromium", screenshot="only-on-failure", headless=False, isolated=True,
-    )
+    browser = Browser().browser
+
     try:
         # Reads a table from an Excel file hosted online.
         excel_file = download_file(
