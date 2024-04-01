@@ -1,7 +1,6 @@
 from RPA.HTTP import HTTP
 from RPA.Excel.Files import Files
 from RPA.PDF import PDF
-from robocorp import browser
 from .locators import Locators
 from utilities.abc.browser import Browser
 
