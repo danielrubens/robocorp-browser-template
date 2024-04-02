@@ -54,7 +54,7 @@ class Spreadsheet(Browser):
             Path: A Path object pointing to the downloaded file.
         """
         # Obtain the content of the file hosted online.
-        response = requests.get(url)
+        response = requests.get(url, timeout=60)
         response.raise_for_status()  # this will raise an exception if the request fails
         # Write the content of the request response to the target file.
         target_dir.mkdir(exist_ok=True)
