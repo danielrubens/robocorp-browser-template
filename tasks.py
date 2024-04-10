@@ -5,20 +5,20 @@ from utilities.pdf.definition import HTMLConversor
 from utilities.pdf.png.definition import PDFConversor
 from utilities.spreadsheet.definition import Spreadsheet
 
-#from __tests__.test_runner import run_test
+from __tests__.test_runner import run_test
 
 
-#@task
+@task
 def fill_spreadsheet():
     spreadsheet = Spreadsheet()
     spreadsheet.fill_spreadsheet()
     
-#@task
+@task
 def credentials_call():
     call_login_task()
     call_password_task()
 
-#@task
+@task
 def pdf_conversor_call():
     conversor = HTMLConversor()
     conversor.to_pdf()
