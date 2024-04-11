@@ -11,6 +11,8 @@ tasks:
   Convert HTML to PDF:
     shell: python -m robocorp.tasks run -t pdf_conversor_call
 
+condaConfigFile: conda.yaml
+
 environmentConfigs:
   - environment_windows_amd64_freeze.yaml
   - environment_linux_amd64_freeze.yaml
