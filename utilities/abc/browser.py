@@ -6,5 +6,5 @@ class Browser(ABC):
     def __init__(self):
         self.browser = browser
         browser.configure(
-                browser_engine="chromium", screenshot="on", headless=False, isolated=True, slowmo=1
+                browser_engine="chromium", screenshot="only-on-failure", headless=True
             )

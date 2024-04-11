@@ -2,7 +2,6 @@ from robocorp.tasks import task
 
 from utilities.login.login import call_login_task, call_password_task
 from utilities.pdf.definition import HTMLConversor
-from utilities.pdf.png.definition import PDFConversor
 from utilities.spreadsheet.definition import Spreadsheet
 
 #from __tests__.test_runner import run_test
@@ -22,8 +21,3 @@ def credentials_call():
 def pdf_conversor_call():
     conversor = HTMLConversor()
     conversor.to_pdf()
-
-#@task
-def pdf_to_png():
-    conversor = PDFConversor()
-    conversor.to_png()

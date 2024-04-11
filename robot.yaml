@@ -2,6 +2,8 @@
 # https://github.com/robocorp/rcc/blob/master/docs/recipes.md#what-is-in-robotyaml
 
 tasks:
+  #Browser Example:
+  #  shell: python -m robocorp.tasks run tasks.py
   Fill Spreadsheet:
     shell: python -m robocorp.tasks run -t fill_spreadsheet
   Login credentials:
