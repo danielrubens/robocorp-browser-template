@@ -5,7 +5,7 @@ from utilities.pdf.definition import HTMLConversor
 from utilities.pdf.png.definition import PDFConversor
 from utilities.spreadsheet.definition import Spreadsheet
 
-from __tests__.test_runner import run_test
+#from __tests__.test_runner import run_test
 
 
 @task
@@ -23,7 +23,7 @@ def pdf_conversor_call():
     conversor = HTMLConversor()
     conversor.to_pdf()
 
-@task
+#@task
 def pdf_to_png():
     conversor = PDFConversor()
     conversor.to_png()
