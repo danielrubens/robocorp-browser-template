@@ -1,11 +1,10 @@
-import os
-import requests
 from robocorp.browser import Page
 from utilities.abc.browser import Browser
 from RPA.Excel.Files import Files as Excel
 from pathlib import Path
 
 from .locators import Locators
+from security import safe_requests
 
 class Spreadsheet(Browser):
     def __init__(self):
@@ -54,7 +53,7 @@ class Spreadsheet(Browser):
             Path: A Path object pointing to the downloaded file.
         """
         # Obtain the content of the file hosted online.
-        response = requests.get(url)
+        response = safe_requests.get(url)
         response.raise_for_status()  # this will raise an exception if the request fails
         # Write the content of the request response to the target file.
         target_dir.mkdir(exist_ok=True)
